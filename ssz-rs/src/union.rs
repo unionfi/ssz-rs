@@ -44,7 +44,7 @@ where
 {
     fn deserialize(encoding: &[u8]) -> Result<Self, DeserializeError> {
         if encoding.is_empty() {
-            return Err(DeserializeError::ExpectedFurtherInput { provided: 0, expected: 1 })
+            return Err(DeserializeError::ExpectedFurtherInput { provided: 0, expected: 1 });
         }
 
         match encoding[0] {
@@ -76,17 +76,12 @@ impl<T> SimpleSerialize for Option<T> where T: SimpleSerialize {}
 mod tests {
     use crate::prelude::*;
 
-    #[derive(Debug, PartialEq, Eq, SimpleSerialize)]
+    #[derive(Debug, Default, PartialEq, Eq, SimpleSerialize)]
     enum AnotherOption {
+        #[default]
         None,
         A(u8),
         B(u8),
-    }
-
-    impl Default for AnotherOption {
-        fn default() -> Self {
-            Self::None
-        }
     }
 
     #[derive(Debug, Default, PartialEq, Eq, SimpleSerialize)]
